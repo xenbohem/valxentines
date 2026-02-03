@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Valentine.art!</title>
+
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #fff5f7;
+        color: #ff69b4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      h1 {
+        color: #ff6fb6;
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+      }
+
+      .form-container {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .input-field {
+        padding: 12px;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid #ff69b4;
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        padding: 14px 22px;
+        background-color: #ff6fb6;
+        color: white;
+        font-size: 18px;
+        border-radius: 25px;
+        width: 100%;
+        cursor: pointer;
+        border: none;
+        font-weight: bold;
+      }
+
+      .submit-btn:hover {
+        background-color: #ff5b9e;
+      }
+
+      .message {
+        padding: 12px;
+        margin-top: 20px;
+        font-size: 16px;
+        border-radius: 8px;
+      }
+
+      .success {
+        background-color: #d1f7c4;
+        color: #388e3c;
+      }
+
+      .error {
+        background-color: #ffd4d4;
+        color: #d32f2f;
+      }
+
+      .loading {
+        color: #ff6fb6;
+      }
+
+      .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #ff69b4;
+      }
+
+      .footer a {
+        color: #ff69b4;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Join the Valentine.art Family!</h1>
+
+    <div class="form-container">
+      <form id="subscribe-form">
+        <input
+          type="email"
+          id="email"
+          class="input-field"
+          placeholder="Enter your email"
+          required
+        />
+        <button type="submit" class="submit-btn">Join ♡</button>
+      </form>
+
+      <div id="response-message" class="message"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        By joining, you're agreeing to receive cute updates from
+        <a href="https://valentine.art" target="_blank">Valentine.art</a>.
+      </p>
+    </div>
+
+    <script>
+  const form = document.getElementById("subscribe-form");
+  const responseMessage = document.getElementById("response-message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+
+    responseMessage.innerText = "Sending… ♡";
+
+    try {
+    	const res = await fetch("https://api.useplunk.com/v1/contacts", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer pk_3da6f1ba5960335936a641bfb1773ee77ba20afa495796ef"
+  },
+  body: JSON.stringify({
+    email: email
+  })
+});
+     
+
+      const text = await res.text();
+      console.log("Status:", res.status);
+      console.log("Response:", text);
+
+      if (res.ok) {
+        responseMessage.innerText =
+          "You're almost in! Check your inbox to confirm ♡";
+      } else {
+        responseMessage.innerText =
+          "Plunk said no 😿 Check console for details.";
+      }
+    } catch (err) {
+      console.error(err);
+      responseMessage.innerText =
+        "Network error — check console 💔";
+    }
+  });
+</script>
+
+  </body>
+</html>
