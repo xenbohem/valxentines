@@ -105,16 +105,10 @@
     <h1>Join the Valentine.art Family!</h1>
 
     <div class="form-container">
-      <form id="subscribe-form">
-        <input
-          type="email"
-          id="email"
-          class="input-field"
-          placeholder="Enter your email"
-          required
-        />
-        <button type="submit" class="submit-btn">Join ♡</button>
-      </form>
+      <form id="subscribe-form" action="https://your-project-name.vercel.app/api/subscribe" method="POST">
+  <input type="email" id="email" class="input-field" placeholder="Enter your email" required />
+  <button type="submit">Join ♡</button>
+</form>
 
       <div id="response-message" class="message"></div>
     </div>
