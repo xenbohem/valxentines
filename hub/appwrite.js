@@ -5,7 +5,7 @@ const sdk = new Appwrite();
 
 sdk
   .setEndpoint('https://YOUR_APPWRITE_ENDPOINT/v1') // Your Appwrite Endpoint
-  .setProject('YOUR_PROJECT_ID'); // Your project ID
+  .setProject('698453930017e185ce48'); // Your project ID
 
 let currentUserId = null;
 
