@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #fefbd8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+  position: relative;
+}
+
+.title {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #a83232;
+  text-shadow: 2px 2px #fff;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 0;
+  background: linear-gradient(to right, #f36, #f90);
+  z-index: 999;
+  transition: width 0.3s;
+}
+
+.auth-section {
+  background: #fff8dc;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+  display: inline-block;
+  margin-top: 50px;
+}
+
+.auth-forms {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.auth-forms input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+.auth-forms button {
+  background-color: #e75480;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.auth-forms button:hover {
+  background-color: #c84e6f;
+}
+
+.forum-section {
+  background: #fff8dc;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 30px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+.topic {
+  background: #fefbd8;
+  border: 2px dashed #f36;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.topic:hover {
+  background: #ffe4e1;
+}
+
+.responses {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.response {
+  background: #fff;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#new-response {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button.response-btn {
+  background-color: #e75480;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+button.response-btn:hover {
+  background-color: #c84e6f;
+}
