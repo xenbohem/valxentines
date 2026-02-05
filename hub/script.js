@@ -2,7 +2,7 @@
 const sdk = new Appwrite();
 
 sdk
-  .setEndpoint('https://YOUR_APPWRITE_ENDPOINT/v1') // Replace with your endpoint, e.g., 'https://cloud.appwrite.io/v1'
+  .setEndpoint('https://sfo.cloud.appwrite.io/v1') // Replace with your endpoint, e.g., 'https://cloud.appwrite.io/v1'
   .setProject('YOUR_PROJECT_ID'); // Replace with your project ID
 
 let currentUserId = null;
