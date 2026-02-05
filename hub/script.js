@@ -66,7 +66,7 @@ async function logout() {
 // Load all topics
 async function loadTopics() {
   const response = await fetchWithLoading(async () => {
-    return await sdk.database.listDocuments('YOUR_DATABASE_ID', 'topics');
+    return await sdk.database.listDocuments('69846ddd00103d42a50e', 'topics');
   });
   const topicsContainer = document.getElementById('topics');
   topicsContainer.innerHTML = '';
@@ -94,7 +94,7 @@ function toggleResponses(topicId) {
 
 // Load responses for a specific topic
 async function loadResponses(topicId) {
-  const response = await sdk.database.listDocuments('YOUR_DATABASE_ID', 'responses', [
+  const response = await sdk.database.listDocuments('69846ddd00103d42a50e', 'responses', [
     sdk.Query.equal('topicId', topicId)
   ]);
 
@@ -115,7 +115,7 @@ async function postResponse(topicId) {
   const text = input.value;
   if (!text) return;
 
-  await sdk.database.createDocument('YOUR_DATABASE_ID', 'responses', 'unique()', {
+  await sdk.database.createDocument('69846ddd00103d42a50e', 'responses', 'unique()', {
     topicId,
     userId: currentUserId,
     responseText: text,
@@ -127,7 +127,7 @@ async function postResponse(topicId) {
 
 // Initialize topics if not already created
 async function initTopics() {
-  const existing = await sdk.database.listDocuments('YOUR_DATABASE_ID', 'topics');
+  const existing = await sdk.database.listDocuments('69846ddd00103d42a50e', 'topics');
   if (existing.total === 0) {
     const topics = [
       "Tips for a Date on Valentine's",
@@ -137,7 +137,7 @@ async function initTopics() {
       "Best Candy"
     ];
     for (const title of topics) {
-      await sdk.database.createDocument('YOUR_DATABASE_ID', 'topics', 'unique()', { title });
+      await sdk.database.createDocument('69846ddd00103d42a50e', 'topics', 'unique()', { title });
     }
   }
 }
