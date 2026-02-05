@@ -1,8 +1,21 @@
-// Show loader during fetch
+// Configure your Appwrite SDK
+const sdk = new Appwrite();
+
+sdk
+  .setEndpoint('https://YOUR_APPWRITE_ENDPOINT/v1') // Replace with your endpoint, e.g., 'https://cloud.appwrite.io/v1'
+  .setProject('YOUR_PROJECT_ID'); // Replace with your project ID
+
+let currentUserId = null;
+
+// Utility to set loader progress
+function setLoadingProgress(percent) {
+  document.querySelector('.loader').style.width = percent + '%';
+}
+
+// Fetch with loading animation
 async function fetchWithLoading(fetchFunc) {
   setLoadingProgress(0);
-  // simulate progress
-  for (let i = 0; i <= 100; i+=20) {
+  for (let i = 0; i <= 100; i += 20) {
     setLoadingProgress(i);
     await new Promise(r => setTimeout(r, 100));
   }
@@ -12,7 +25,7 @@ async function fetchWithLoading(fetchFunc) {
   return result;
 }
 
-// Register
+// Register user
 async function register() {
   const name = document.getElementById('register-name').value;
   const email = document.getElementById('register-email').value;
@@ -26,7 +39,7 @@ async function register() {
   }
 }
 
-// Login
+// Log in user
 async function login() {
   const email = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
@@ -42,7 +55,7 @@ async function login() {
   }
 }
 
-// Logout
+// Log out user
 async function logout() {
   await sdk.account.deleteSession('current');
   currentUserId = null;
@@ -50,7 +63,7 @@ async function logout() {
   document.getElementById('forum-section').style.display = 'none';
 }
 
-// Load Topics
+// Load all topics
 async function loadTopics() {
   const response = await fetchWithLoading(async () => {
     return await sdk.database.listDocuments('YOUR_DATABASE_ID', 'topics');
@@ -61,21 +74,25 @@ async function loadTopics() {
   response.documents.forEach(topic => {
     const div = document.createElement('div');
     div.className = 'topic';
-    div.innerHTML = `<h3>${topic.title}</h3><div class="responses" id="responses-${topic.$id}"></div>
-                     <input type="text" placeholder="Your response..." id="response-input-${topic.$id}" />
-                     <button class="response-btn" onclick="postResponse('${topic.$id}')">Respond</button>`;
+    div.innerHTML = `
+      <h3>${topic.title}</h3>
+      <div class="responses" id="responses-${topic.$id}"></div>
+      <input type="text" placeholder="Your response..." id="response-input-${topic.$id}" />
+      <button class="response-btn" onclick="postResponse('${topic.$id}')">Respond</button>
+    `;
     div.onclick = () => toggleResponses(topic.$id);
     topicsContainer.appendChild(div);
     loadResponses(topic.$id);
   });
 }
 
-async function toggleResponses(topicId) {
+// Toggle responses visibility
+function toggleResponses(topicId) {
   const responsesDiv = document.getElementById(`responses-${topicId}`);
   responsesDiv.style.display = responsesDiv.style.display === 'block' ? 'none' : 'block';
 }
 
-// Load responses for a topic
+// Load responses for a specific topic
 async function loadResponses(topicId) {
   const response = await sdk.database.listDocuments('YOUR_DATABASE_ID', 'responses', [
     sdk.Query.equal('topicId', topicId)
@@ -92,7 +109,7 @@ async function loadResponses(topicId) {
   });
 }
 
-// Post response
+// Post a response
 async function postResponse(topicId) {
   const input = document.getElementById(`response-input-${topicId}`);
   const text = input.value;
@@ -108,7 +125,7 @@ async function postResponse(topicId) {
   loadResponses(topicId);
 }
 
-// Initialize with predefined topics (if not already created)
+// Initialize topics if not already created
 async function initTopics() {
   const existing = await sdk.database.listDocuments('YOUR_DATABASE_ID', 'topics');
   if (existing.total === 0) {
@@ -125,5 +142,7 @@ async function initTopics() {
   }
 }
 
-// Run initial setup
-initTopics();
+// Run initial setup on page load
+window.onload = () => {
+  initTopics();
+};
